@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 #Displays a list of currently running processes
 
-ps -aux | less
+running_process=$(ps -aux | less)
+echo "$running_process"
+
