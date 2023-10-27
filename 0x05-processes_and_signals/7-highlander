@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#displaying to infinity
+
+handle_signal() {
+	echo "I am invincible!!!"
+	exit 0
+}
+
+trap 'handle_signal' SIGTERM
+
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+done
