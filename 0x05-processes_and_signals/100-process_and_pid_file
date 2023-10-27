@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 #create a file and display to infinity
 
-touch /var/run/myscript.pid
+echo $BASHPID > /var/run/holbertonscript.pid
 
-trap 'echo "I hate the kill command"' SIGTERM
-trap 'echo "Y U no love me?!"' SIGINT
-trap 'rm /var/run/myscript.pid' SIGQUIT SIGTERM
+trap 'echo "I hate the kill command"; rm /var/run/myscript.pid; exit 0;' SIGTERM
+trap 'echo "Y U no love me?!"; exit 0;' SIGINT
+trap 'rm /var/run/myscript.pid' SIGQUIT
 
 while true
 do
 	echo "To infinity and beyond"
+	sleep 2
 done
