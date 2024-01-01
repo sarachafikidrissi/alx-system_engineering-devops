@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #configuring ssh
-Host 18.209.180.189
+Host 54.160.68.58
     IdentityFile ~/.ssh/school
-    PreferredAuthentications publickey
     PasswordAuthentication no
-    Protocol 2
+    
