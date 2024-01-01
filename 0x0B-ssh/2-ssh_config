@@ -2,4 +2,6 @@
 #configuring ssh
 Host 18.209.180.189
     IdentityFile ~/.ssh/school
+    PreferredAuthentications publickey
+    PasswordAuthentication no
     Protocol 2
