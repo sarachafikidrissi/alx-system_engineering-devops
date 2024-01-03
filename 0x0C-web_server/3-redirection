@@ -1,26 +1,7 @@
 #!/usr/bin/env bash
-# Configure a new Nginx server so that /redirect_me is redirecting to another page.
-# The redirection must be a “301 Moved Permanently”
-apt-get update
-touch /etc/nginx/html/index.html
-echo "Hello World!" > /etc/nginx/html/index.html
-printf %s "server {
-     listen      80;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.htm;
-}
-" > /etc/nginx/sites-available/default
-echo "server {
-    listen 80;
-    listen [::]:80;
-
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-}" | sudo tee /etc/nginx/sites-available/redirect
-sudo ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo service nginx reload
+# Script that installs Nginx server and redirects /redirect_me
+apt-get -y update
+apt-get -y install nginx
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/sarachafikidrissi permanent;/" /etc/nginx/sites-available/default
+service nginx start
