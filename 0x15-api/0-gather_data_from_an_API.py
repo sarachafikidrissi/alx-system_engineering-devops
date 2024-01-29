@@ -38,4 +38,4 @@ if __name__ == '__main__':
     print("({}/{}):".format(done, len(tasks)))
 
     for n in done_tasks:
-        print(n.get('title'), end="\n")
+        print("\t {}".format(n.get('title')))
