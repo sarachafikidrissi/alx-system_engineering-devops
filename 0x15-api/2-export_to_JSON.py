@@ -11,10 +11,7 @@ if __name__ == '__main__':
     _id = sys.argv[1]
     url_1 = "https://jsonplaceholder.typicode.com/users/{}".format(_id)
     url_2 = "https://jsonplaceholder.typicode.com/todos?userId={}".format(_id)
-    
-
     json_info = []
-
     response = urllib.request.urlopen(url_1)
     data = response.read()
     decoded_data = data.decode('utf-8')
