@@ -3,34 +3,29 @@
 This module use API to export data in the json format
 """
 import json
+import requests
 import sys
-import urllib.request
 
+if __name__ == "__main__":
+    url = 'https://jsonplaceholder.typicode.com/'
 
-if __name__ == '__main__':
-    _id = sys.argv[1]
-    url_1 = "https://jsonplaceholder.typicode.com/users/{}".format(_id)
-    url_2 = "https://jsonplaceholder.typicode.com/todos?userId={}".format(_id)
-    json_info = []
-    response = urllib.request.urlopen(url_1)
-    data = response.read()
-    decoded_data = data.decode('utf-8')
-    json_data = json.loads(decoded_data)
-    username = json_data.get('username')
+    userid = sys.argv[1]
+    user = '{}users/{}'.format(url, userid)
+    res = requests.get(user)
+    json_o = res.json()
+    name = json_o.get('username')
 
-    response = urllib.request.urlopen(url_2)
-    data = response.read()
-    decoded_data = data.decode('utf-8')
-    json_data = json.loads(decoded_data)
-
-    for task in json_data:
-        dict_data = {"task": task.get('title'),
+    todos = '{}todos?userId={}'.format(url, userid)
+    res = requests.get(todos)
+    tasks = res.json()
+    l_task = []
+    for task in tasks:
+        dict_task = {"task": task.get('title'),
                      "completed": task.get('completed'),
-                     "username": username}
-        json_info.append(dict_data)
+                     "username": name}
+        l_task.append(dict_task)
 
-    d_task = {str(_id): dict_data}
-
-    filename = '{}.json'.format(_id)
+    d_task = {str(userid): l_task}
+    filename = '{}.json'.format(userid)
     with open(filename, mode='w') as f:
         json.dump(d_task, f)
