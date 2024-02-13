@@ -1,18 +1,18 @@
-import json
+#!/usr/bin/python3
+"""This is 0-subs module
+"""
 import requests
 
 
 def number_of_subscribers(subreddit):
     """function that queries the Reddit API
-    and returns the number of subscribers 
+    and returns the number of subscribers
     """
-    url ="https://www.reddit.com/r/{}/about.json".format(subreddit)
-    response = requests.get(url)
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    response = requests.get(url, headers={})
 
-    reddit = response.json()
-
-    try:
-        total_subscribers = reddit.get('data').get('subscribers')
-        return int(total_subscribers)
-    except:
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['subscribers']
+    else:
         return 0
