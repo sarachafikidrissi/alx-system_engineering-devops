@@ -23,7 +23,9 @@ def top_ten(subreddit):
                        headers=headers,
                        params=params,
                        allow_redirects=False)
-    if res.status_code != 200:
+    if res.status_code == 400:
+        return -1
+    elif res.status_code != 200:
         print(None)
         return
     dic = res.json()
